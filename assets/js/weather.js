@@ -78,5 +78,12 @@ let loadWeekForecastData = () => {
   });
 };
 
-loadDayForecastData();
-loadWeekForecastData();
+document.addEventListener("DOMContentLoaded", (event) => {
+  //Código a ejecutar
+  loadDayForecastData();
+
+  let buttonHTML = document.getElementById("loadinfo");
+  buttonHTML.addEventListener("click", (event) => {
+    loadWeekForecastData();
+  });
+});
