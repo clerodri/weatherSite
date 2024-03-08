@@ -1,8 +1,6 @@
 import { weather_data } from "./data.js";
 
-let loadDayForecastData = () => {
-  let [guayaquil, ambato, tena] = weather_data;
-
+let loadDayForecastData = (ciudad_selected) => {
   let {
     city,
     date,
@@ -13,7 +11,7 @@ let loadDayForecastData = () => {
     rainfall,
     forecast_today,
     ...other
-  } = guayaquil;
+  } = ciudad_selected;
 
   let late_iconHTML = document.getElementById("late_icon");
   late_iconHTML.innerHTML = forecast_today[0].icon;
@@ -55,9 +53,8 @@ let loadDayForecastData = () => {
   rainfallHTML.innerHTML = rainfall;
 };
 
-let loadWeekForecastData = () => {
-  let [guayaquil, ambato, tema] = weather_data;
-  let { forecast_week } = guayaquil;
+let loadWeekForecastData = (ciudad_selected) => {
+  let { forecast_week } = ciudad_selected;
   let container = document.getElementById("test");
   container.innerHTML = "";
   forecast_week.forEach((element) => {
@@ -79,11 +76,32 @@ let loadWeekForecastData = () => {
 };
 
 document.addEventListener("DOMContentLoaded", (event) => {
+  let selectedValue;
+  let [guayaquil, ambato, tena] = weather_data;
+
+  let selectedObject;
+
   //Código a ejecutar
-  loadDayForecastData();
+  let selectHTML = document.getElementById("dropdownMenuButton");
+  selectHTML.addEventListener("change", (event) => {
+    selectedValue = event.target.value;
+    switch (selectedValue) {
+      case "guayaquil":
+        selectedObject = guayaquil;
+        break;
+      case "ambato":
+        selectedObject = ambato;
+        break;
+      case "tena":
+        selectedObject = tena;
+        break;
+    }
+    loadDayForecastData(selectedObject);
+    loadWeekForecastData(""); // vacio el html para que user vuelva a cargar la data
+  });
 
   let buttonHTML = document.getElementById("loadinfo");
   buttonHTML.addEventListener("click", (event) => {
-    loadWeekForecastData();
+    loadWeekForecastData(selectedObject);
   });
 });
