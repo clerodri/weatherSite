@@ -1,7 +1,7 @@
 import { weather_data } from "./data.js";
 
 let loadDayForecastData = () => {
-  let [guayaquil, ambato, tema] = weather_data;
+  let [guayaquil, ambato, tena] = weather_data;
 
   let {
     city,
@@ -11,8 +11,27 @@ let loadDayForecastData = () => {
     cloudiness,
     wind,
     rainfall,
+    forecast_today,
     ...other
   } = guayaquil;
+
+  let late_iconHTML = document.getElementById("late_icon");
+  late_iconHTML.innerHTML = forecast_today[0].icon;
+  let late_temperatureHTML = document.getElementById("late_temperature");
+  late_temperatureHTML.innerHTML = forecast_today[0].temperature;
+  let late_forecastHTML = document.getElementById("late_forecast");
+  late_forecastHTML.innerHTML = forecast_today[0].forecast;
+  let late_textHTML = document.getElementById("late_text");
+  late_textHTML.innerHTML = forecast_today[0].text;
+
+  let night_iconHTML = document.getElementById("night_icon");
+  night_iconHTML.innerHTML = forecast_today[1].icon;
+  let night_temperatureHTML = document.getElementById("night_temperature");
+  night_temperatureHTML.innerHTML = forecast_today[1].temperature;
+  let night_forecastHTML = document.getElementById("night_forecast");
+  night_forecastHTML.innerHTML = forecast_today[1].forecast;
+  let night_textHTML = document.getElementById("night_text");
+  night_textHTML.innerHTML = forecast_today[1].text;
 
   let cityHTML = document.getElementById("city");
   cityHTML.innerHTML = city;
